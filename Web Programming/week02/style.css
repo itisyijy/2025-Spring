@@ -1,0 +1,100 @@
+/* responsive webpage */
+@media (min-width: 500px) {
+  body {
+    background-color: skyblue;
+  }
+}
+
+@media (max-width: 500px) {
+  body {
+    background-color: bisque;
+  }
+}
+
+h1 {
+  color: blue /* !important */;
+  text-align: center;
+}
+
+#charles {
+  color: red;
+}
+
+.mclaren {
+  color: orange;
+}
+
+p {
+  background-color: khaki;
+  width: 400px;
+  padding: 20px;
+  margin: 30px;
+  border: 20px dashed red;
+
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: large;
+  font-weight: 200;
+}
+
+table,
+td,
+th {
+  border: 1px solid;
+}
+
+ul li {
+  color: green;
+}
+
+ol > li {
+  color: blue;
+}
+
+a {
+  font-size: 40pt;
+  color: pink;
+}
+
+a[href="https://www.instagram.com"]
+{
+  color: purple;
+}
+
+button {
+  width: 200px;
+  height: 40px;
+  background-color: red;
+}
+
+button:hover {
+  background-color: brown;
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  max-height: 500px;
+}
+
+.container div {
+  background-color: green;
+  font-size: 20px;
+  width: ;
+}
+
+.grid {
+  background-color: black;
+  display: grid;
+  font-size: 20pt;
+  padding: 10px;
+  grid-column-gap: 10px;
+  grid-row-gap: 10px;
+  grid-template-columns: 100px auto 200px;
+}
+
+.grid_item {
+  background-color: beige;
+  text-align: center;
+  padding: 20px;
+}
