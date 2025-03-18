@@ -1,0 +1,16 @@
+#collage {
+    display: flex;
+    padding: 20px;
+    height: 300px;
+    width: 300px;
+    flex-wrap: wrap;
+    border: 3px solid black;
+
+    /* how to center aligned main and cross axes */
+    justify-content: center;
+    align-items: center;
+}
+
+#collage img {
+    height: 100px;
+}
