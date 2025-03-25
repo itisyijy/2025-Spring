@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const entry = document.querySelector("button");
-  entry.addEventListener("click", function () {
+  const button = document.querySelector("button");
+  button.addEventListener("click", function () {
     const date = document.querySelector("#date").value;
     const text = document.querySelector("#entry").value;
 
@@ -10,9 +10,15 @@ document.addEventListener("DOMContentLoaded", () => {
       const paragraph = document.createElement("p");
       head3.textContent = date;
       paragraph.textContent = text;
+      document.querySelector("#date").value = "";
+      document.querySelector("#entry").value = "";
       article.appendChild(head3);
       article.appendChild(paragraph);
       document.querySelector("#posts").appendChild(article);
+
+      article.addEventListener("dblclick", function () {
+        article.remove();
+      });
     }
   });
 });
