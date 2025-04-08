@@ -9,17 +9,16 @@ document.addEventListener("DOMContentLoaded", () => {
  * Fetches Pokémon data and
  */
 async function fetchPokemon() {
-  let name = document.getElementById("pokemon-name").value;
-  console.log(name);
+  let name = id("pokemon-name").value.toLowerCase().trim(); // make lower case, remove spaces
   try {
     const url = `https://pokeapi.co/api/v2/pokemon/${name}`;
-    const response = await fetch(url);
+    let response = await fetch(url);
     await statusCheck(response);
-    const data = await response.json();
-    await addPokemonToPokedex(data);
-    await checkNumDisplayed();
+    response = await response.json();
+    await addPokemonToPokedex(response);
   } catch (error) {
-    console.log("Error.", error);
+    console.log(error);
+    alert("Could not find that Pokemon.");
   }
 }
 
@@ -28,7 +27,9 @@ async function fetchPokemon() {
  */
 async function addPokemonToPokedex(pokemonData) {
   let card = createPokemonCard(pokemonData);
-  document.getElementById("pokedex").appendChild(card);
+  id("pokedex").appendChild(card);
+  id("pokemon-name").value = ""; // clear input section
+  checkNumDisplayed();
 }
 
 /**
