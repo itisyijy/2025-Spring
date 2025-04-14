@@ -92,7 +92,7 @@ button:hover {
   display: grid;
   font-size: 20pt;
   padding: 10px;
-  grid-column-gap: 10px;
+  grid-column-gap: 20px;
   grid-row-gap: 10px;
   grid-template-columns: 100px auto 200px;
 }
