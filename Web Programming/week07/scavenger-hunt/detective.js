@@ -27,8 +27,8 @@ function getSecondClue() {
 }
 
 async function fetchSecondClue() {
-  let secondClue = await getSecondClue();
-  fetch(baseURL + secondClue)
+  let secondAPI = getSecondClue();
+  fetch(baseURL + secondAPI)
     .then((response) => response.json())
     .then((json) => {
       console.log(json);
@@ -55,21 +55,47 @@ function getThirddClue() {
 }
 
 async function fetchThirdClue() {
-  let thirdClue = getThirddClue();
-  fetch(baseURL + thirdClue)
+  let thirdAPI = getThirddClue();
+  fetch(baseURL + thirdAPI)
     .then((response) => response.json())
     .then((json) => {
       console.log(json);
       json_output = json;
       const containerClue3 = id("clue3");
       containerClue3.innerHTML = json["innerhtml"];
+      const clue3Button = id("boton3");
+      clue3Button.addEventListener("click", makeFinalSubmission);
     })
     .catch((error) => console.log(error));
 }
 
-function handleFinalClue() {}
+function handleFinalClue() {
+  let finalClue = "callbackhell";
+  json_output = {
+    name: "Jeong-yun Lee",
+    studentId: "21102052",
+  };
+  return "api/" + finalClue;
+}
 
-async function makeFinalSubmission() {}
+async function makeFinalSubmission() {
+  try {
+    let finalAPI = handleFinalClue();
+    console.log(json_output);
+    const response = await fetch(baseURL + finalAPI, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(json_output),
+    });
+    const responseCheck = await statusCheck(response);
+    const result = await responseCheck.json();
+    console.log("Success", result);
+  } catch (error) {
+    console.error("Error", error);
+  }
+}
 
 //helper functions for implementing your solution
 
