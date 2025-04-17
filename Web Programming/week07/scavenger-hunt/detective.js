@@ -27,27 +27,28 @@ function getSecondClue() {
 }
 
 async function fetchSecondClue() {
-  let secondAPI = getSecondClue();
-  fetch(baseURL + secondAPI)
-    .then((response) => response.json())
-    .then((json) => {
-      console.log(json);
-      json_output = json;
-      const containerClue2 = id("clue2");
-      containerClue2.innerHTML = json["innerhtml"];
-      const clue2Button = id("boton2");
-      clue2Button.addEventListener("click", () => {
-        json["boxes"].forEach((element) => {
-          let box = document.createElement("div");
-          box.textContent = element["text"];
-          box.id = element["id"];
-          id("key-container").appendChild(box);
-        });
-        id("key-container").style.display = "flex";
-        fetchThirdClue();
+  try {
+    let secondAPI = await getSecondClue();
+    let response = await fetch(baseURL + secondAPI);
+    let json = await response.json();
+    console.log(json);
+    json_output = json;
+    const containerClue2 = id("clue2");
+    containerClue2.innerHTML = json["innerhtml"];
+    const clue2Button = id("boton2");
+    clue2Button.addEventListener("click", () => {
+      json["boxes"].forEach((element) => {
+        let box = document.createElement("div");
+        box.textContent = element["text"];
+        box.id = element["id"];
+        id("key-container").appendChild(box);
       });
-    })
-    .catch((error) => console.log(error));
+      id("key-container").style.display = "flex";
+      fetchThirdClue();
+    });
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 function getThirddClue() {
@@ -55,18 +56,19 @@ function getThirddClue() {
 }
 
 async function fetchThirdClue() {
-  let thirdAPI = getThirddClue();
-  fetch(baseURL + thirdAPI)
-    .then((response) => response.json())
-    .then((json) => {
-      console.log(json);
-      json_output = json;
-      const containerClue3 = id("clue3");
-      containerClue3.innerHTML = json["innerhtml"];
-      const clue3Button = id("boton3");
-      clue3Button.addEventListener("click", makeFinalSubmission);
-    })
-    .catch((error) => console.log(error));
+  try {
+    let thirdAPI = await getThirddClue();
+    let response = await fetch(baseURL + thirdAPI);
+    let json = await response.json();
+    console.log(json);
+    json_output = json;
+    const containerClue3 = id("clue3");
+    containerClue3.innerHTML = json["innerhtml"];
+    const clue3Button = id("boton3");
+    clue3Button.addEventListener("click", makeFinalSubmission);
+  } catch (error) {
+    console.log(error);
+  }
 }
 
 function handleFinalClue() {
@@ -80,8 +82,7 @@ function handleFinalClue() {
 
 async function makeFinalSubmission() {
   try {
-    let finalAPI = handleFinalClue();
-    console.log(json_output);
+    let finalAPI = await handleFinalClue();
     const response = await fetch(baseURL + finalAPI, {
       method: "POST",
       headers: {
@@ -89,6 +90,7 @@ async function makeFinalSubmission() {
       },
       body: JSON.stringify(json_output),
     });
+    console.log(json_output);
     const responseCheck = await statusCheck(response);
     const result = await responseCheck.json();
     console.log("Success", result);
