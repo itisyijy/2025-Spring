@@ -19,11 +19,10 @@ fetch(pokemonUrl)
 */
 
 async function loadPokemon() {
-  fetch(pokemonUrl);
   try {
     const response = await fetch(pokemonUrl);
     let data = await response.json();
-    
+
     console.log(data.name);
     console.log(data.height);
     console.log(data.weight);
