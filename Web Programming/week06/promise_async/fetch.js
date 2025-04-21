@@ -2,7 +2,6 @@
 
 const pokemonUrl = "https://pokeapi.co/api/v2/pokemon/gengar";
 
-/*
 fetch(pokemonUrl)
   .then((response) => response.json())
   .then((data) => {
@@ -16,7 +15,6 @@ fetch(pokemonUrl)
   .catch((error) => {
     console.error("Error fetching Pokemon data:", error);
   });
-*/
 
 async function loadPokemon() {
   try {
