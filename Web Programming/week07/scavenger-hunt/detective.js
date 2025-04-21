@@ -38,14 +38,18 @@ async function fetchSecondClue() {
     containerClue2.innerHTML = json["innerhtml"];
     const clue2Button = id("boton2");
     clue2Button.addEventListener("click", () => {
-      json["boxes"].forEach((element) => {
-        let box = document.createElement("div");
-        box.textContent = element["text"];
-        box.id = element["id"];
-        id("key-container").appendChild(box);
-      });
-      id("key-container").style.display = "flex";
-      fetchThirdClue();
+      if (id("key-container").childElementCount == 0) {
+        json["boxes"].forEach((element) => {
+          let box = document.createElement("div");
+          box.textContent = element["text"];
+          box.id = element["id"];
+          box.classList.add("clue2");
+          id("key-container").appendChild(box);
+        });
+        id("key-container").style.display = "flex";
+        id("key-container").style.flexDirection = "row";
+        fetchThirdClue();
+      }
     });
   } catch (error) {
     console.log(error);
