@@ -1,104 +1,114 @@
 document.addEventListener("DOMContentLoaded", fetchFirstClue);
 
 let baseURL = "http://114.71.51.49:60003/";
-let json_output;
 
 function fetchFirstClue() {
   fetch(baseURL + "api/first-clue")
     .then((response) => response.json())
     .then((json) => {
       console.log(json);
-      json_output = json;
       const containerClue1 = id("clue1");
       containerClue1.innerHTML = json["innerhtml"];
-      const clue1Button = id("boton1");
-      clue1Button.addEventListener("click", fetchSecondClue);
+      getSecondClue(json.clueArray);
     })
     .catch((error) => console.log(error));
 }
 
-function getSecondClue() {
-  let secondClue = "";
-  json_output["clueArray"].forEach((element) => {
-    let extract = element[element.length % 5];
-    secondClue += extract;
+function getSecondClue(clueArray) {
+  let nextAPI = baseURL + "api/";
+  const clue1Button = id("boton1");
+  clue1Button.addEventListener("click", () => {
+    let nextAPICode = "";
+    clueArray.forEach((coffee) => {
+      let index = coffee.length % 5;
+      nextAPICode += coffee[index];
+    });
+    nextAPI += nextAPICode;
+    fetchSecondClue(nextAPI).then(
+      console.log("fetch second clue successfully")
+    );
   });
-  return "api/" + secondClue;
 }
 
-async function fetchSecondClue() {
+async function fetchSecondClue(api) {
   try {
-    let secondAPI = getSecondClue();
-    let response = await fetch(baseURL + secondAPI);
+    let response = await fetch(api);
     response = await statusCheck(response);
     let json = await response.json();
     console.log(json);
-    json_output = json;
     const containerClue2 = id("clue2");
     containerClue2.innerHTML = json["innerhtml"];
-    const clue2Button = id("boton2");
-    clue2Button.addEventListener("click", () => {
-      if (id("key-container").childElementCount == 0) {
-        json["boxes"].forEach((element) => {
-          let box = document.createElement("div");
-          box.textContent = element["text"];
-          box.id = element["id"];
-          box.classList.add("clue2");
-          id("key-container").appendChild(box);
-        });
-        id("key-container").style.display = "flex";
-        id("key-container").style.flexDirection = "row";
-        fetchThirdClue();
-      }
-    });
+    getThirdClue(json["boxes"]);
   } catch (error) {
     console.log(error);
   }
 }
 
-function getThirddClue() {
-  return "api/" + "crud" + "200" + "rest" + "ssr";
+function getThirdClue(boxes) {
+  const clue2Button = id("boton2");
+  clue2Button.addEventListener("click", () => {
+    if (id("key-container").childElementCount == 0) {
+      const keyContainer = id("key-container");
+      keyContainer.style.display = "flex";
+      keyContainer.style.flexDirection = "row";
+
+      boxes.forEach((box) => {
+        let clue = document.createElement("div");
+        clue.textContent = box["text"];
+        clue.id = box["id"];
+        clue.classList.add("clue2");
+        keyContainer.appendChild(clue);
+      });
+      let nextAPI = baseURL + "api/" + "crud" + "200" + "rest" + "ssr";
+      fetchThirdClue(nextAPI).then(
+        console.log("fetch third clue successfully")
+      );
+    }
+  });
 }
 
-async function fetchThirdClue() {
+async function fetchThirdClue(api) {
   try {
-    let thirdAPI = getThirddClue();
-    let response = await fetch(baseURL + thirdAPI);
+    let response = await fetch(api);
     response = await statusCheck(response);
-    let json = await response.json();
-    console.log(json);
-    json_output = json;
+    let data = await response.json();
+    console.log(data);
     const containerClue3 = id("clue3");
-    containerClue3.innerHTML = json["innerhtml"];
-    const clue3Button = id("boton3");
-    clue3Button.addEventListener("click", makeFinalSubmission);
+    containerClue3.innerHTML = data["innerhtml"];
+    handleFinalClue();
   } catch (error) {
     console.log(error);
   }
 }
 
 function handleFinalClue() {
-  let finalClue = "callbackhell";
-  json_output = {
-    name: "Jeong-yun Lee",
-    studentId: "21102052",
-  };
-  return "api/" + finalClue;
+  const clue3Button = id("boton3");
+  clue3Button.addEventListener("click", () => {
+    console.log("button3");
+    makeFinalSubmission().then(
+      console.log("make final submission successfully")
+    );
+  });
 }
 
 async function makeFinalSubmission() {
+  let myData = {
+    name: "Jeong-yun Lee",
+    studentId: "21102052",
+  };
+
+  let api = baseURL + "api/" + "callbackhell";
   try {
-    let finalAPI = await handleFinalClue();
-    const response = await fetch(baseURL + finalAPI, {
+    let response = await fetch(api, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(json_output),
+      body: JSON.stringify(myData),
     });
-    console.log(json_output);
-    const responseCheck = await statusCheck(response);
-    const result = await responseCheck.json();
+    console.log(myData);
+    response = await statusCheck(response);
+    const result = await response.json();
     console.log("Success", result);
   } catch (error) {
     console.error("Error", error);
