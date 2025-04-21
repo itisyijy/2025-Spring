@@ -28,8 +28,9 @@ function getSecondClue() {
 
 async function fetchSecondClue() {
   try {
-    let secondAPI = await getSecondClue();
+    let secondAPI = getSecondClue();
     let response = await fetch(baseURL + secondAPI);
+    response = await statusCheck(response);
     let json = await response.json();
     console.log(json);
     json_output = json;
@@ -57,8 +58,9 @@ function getThirddClue() {
 
 async function fetchThirdClue() {
   try {
-    let thirdAPI = await getThirddClue();
+    let thirdAPI = getThirddClue();
     let response = await fetch(baseURL + thirdAPI);
+    response = await statusCheck(response);
     let json = await response.json();
     console.log(json);
     json_output = json;
