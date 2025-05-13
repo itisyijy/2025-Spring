@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add Books</title>
+  </head>
+  <body>
+    <h1>Add Books</h1>
+    <form id="add-book">
+      <input type="text" name="book-title" placeholder="Book Title" />
+      <input type="text" name="book-author" placeholder="Book Author" />
+      <button>Save</button>
+    </form>
+    <a href="index.html">Book List</a>
+    <script>
+      //add.html
+      document.getElementById("add-book").onsubmit = (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const payload = {
+          title: form["book-title"].value,
+          author: form["book-author"].value,
+        };
+        fetch("/api/books", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        }).then(() => (location.href = "index.html"));
+      };
+    </script>
+  </body>
+</html>
