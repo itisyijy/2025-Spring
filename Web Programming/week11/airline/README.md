@@ -8,6 +8,13 @@
 
 `npm install nodemon`
 
-# execution
+# package.json
+`
+"scripts": {
+    "dev": "nodemon --legacy-watch database.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+`
 
+# execution
 `node database.js`
