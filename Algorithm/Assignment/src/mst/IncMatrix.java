@@ -88,8 +88,8 @@ public class IncMatrix implements Graph {
     // 가중치가 낮은 간선부터 하나씩 확인
     for (Edge e : edges) {
       // 간선의 두 끝 정점(u, v)에 대해 각 집합의 대표(루트)를 찾음
-      int uRoot = ds.find(e.getTail());
-      int vRoot = ds.find(e.getHead());
+      int uRoot = ds.find(e.getTail()); // e.getTail() = u
+      int vRoot = ds.find(e.getHead()); // e.getHead() = v
 
       // 두 정점이 서로 다른 집합에 속해 있다면 → 사이클이 없음
       if (uRoot != vRoot) {
@@ -105,5 +105,4 @@ public class IncMatrix implements Graph {
     // MST를 구성하는 간선들의 리스트 반환
     return mst;
   }
-
 }
