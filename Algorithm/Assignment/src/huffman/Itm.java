@@ -3,6 +3,10 @@ package huffman;
 public class Itm {
 
   public String decoder(HuffmanCodeTree huffmanTree, String encodedString) {
+    if (huffmanTree == null || encodedString == null) {
+      return "invalid";
+    }
+
     HNode current = huffmanTree.root;
     // String 대신 사용. append() 사용 가능.
     StringBuilder result = new StringBuilder();
