@@ -1,0 +1,12 @@
+{
+  "name": "unit_testing",
+  "version": "1.0.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "utils.js",
+  "scripts": {
+    "node-test": "node --test \"node_test/*.test.js\""
+  }
+}
