@@ -1,0 +1,11 @@
+ALOHA PROTOCOL, GRAPH ... 6Q ✅
+Distance Vector, Count to inf, good/bad news ... 5Q ✅
+Adaptive Dynamic Modulation, SNR, BER, Modulation, Graph ... 3Q
+
+DOCSICS
+Wireless Link Characteristics
+Bellman-Ford Equation ✅
+CSMA/CD
+CSMA/CA
+traceroute, ICMP ✅
+BGP ✅
